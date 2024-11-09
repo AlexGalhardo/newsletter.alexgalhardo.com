@@ -1,0 +1,93 @@
+{
+	"name": "newsletter.alexgalhardo.com",
+	"type": "module",
+	"scripts": {
+		"start": "npm run build && npm run preview",
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"preview": "vite preview",
+		"prepare": "husky",
+		"lint": "biome check src/ --fix --unsafe",
+		"format": "biome format src/ --fix"
+	},
+	"dependencies": {
+		"@biomejs/biome": "1.9.4",
+		"bootstrap": "^5.3.3",
+		"bootstrap-icons": "^1.11.3",
+		"react": "^18.3.1",
+		"react-bootstrap": "^2.10.5",
+		"react-canvas-confetti": "^2.0.7",
+		"react-dom": "^18.3.1",
+		"react-router-dom": "^6.28.0",
+		"react-spinners": "^0.14.1",
+		"react-toastify": "^10.0.6",
+		"zod": "^3.23.8"
+	},
+	"devDependencies": {
+		"@types/react": "^18.3.12",
+		"@types/react-dom": "^18.3.1",
+		"@vitejs/plugin-react": "^4.3.3",
+		"husky": "^9.1.6",
+		"prettier": "^3.3.3",
+		"typescript": "^5.6.3",
+		"vite": "^5.4.10",
+		"release-it": "^17.10.0",
+		"@commitlint/cli": "^19.5.0",
+		"@commitlint/config-conventional": "^19.5.0"
+	},
+	"lint-staged": {
+		"*.{js,ts,cjs,mjs,d.cts,d.mts,json,jsonc}": [
+			"biome check --apply --no-errors-on-unmatched"
+		]
+	},
+	"release-it": {
+		"git": {
+			"commitMessage": "chore: release v${version}"
+		},
+		"github": {
+			"release": true
+		},
+		"npm": {
+			"publish": false
+		},
+		"plugins": {
+			"@release-it/conventional-changelog": {
+				"infile": "CHANGELOG.md",
+				"preset": {
+					"name": "conventionalcommits",
+					"types": [
+						{
+							"type": "BREAKING CHANGE",
+							"section": "Breaking Changes:"
+						},
+						{
+							"type": "feat",
+							"section": "Features:"
+						},
+						{
+							"type": "fix",
+							"section": "Bug Fixes:"
+						},
+						{
+							"type": "refactor",
+							"section": "Refactorings:"
+						},
+						{
+							"type": "docs",
+							"section": "Documentations:"
+						},
+						{
+							"type": "test",
+							"section": "Tests:"
+						}
+					]
+				}
+			}
+		}
+	},
+	"commitlint": {
+		"extends": [
+			"@commitlint/config-conventional"
+		]
+	}
+}
