@@ -1,22 +1,15 @@
-import { useEffect, useState, CSSProperties } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Head from "../components/Head";
 import "react-toastify/dist/ReactToastify.css";
 import { API_URL } from "../utils/envs.util";
 import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
 import { z } from "zod";
-import ClipLoader from "react-spinners/PacmanLoader";
 
 const confirmEmailSchema = z.object({
 	email: z.string().email({ message: "Por favor, digite um email válido!" }),
 	confirm_email_token: z.string().min(48).max(48, { message: "O token de confirmação deve ter 48 caracteres." }),
 });
-
-const override: CSSProperties = {
-	display: "block",
-	margin: "0 auto",
-	borderColor: "red",
-};
 
 export default function ConfirmEmailPage() {
 	const { email, confirm_email_token } = useParams();
@@ -50,24 +43,6 @@ export default function ConfirmEmailPage() {
 		confirmEmail();
 	}, [email, confirm_email_token, navigate]);
 
-	useEffect(() => {
-		const timer = setTimeout(() => setIsLoading(false), 10000);
-		return () => clearTimeout(timer);
-	}, []);
-
-	if (isLoading) {
-		return (
-			<ClipLoader
-				color={"#ffffff"}
-				loading={isLoading}
-				cssOverride={override}
-				size={150}
-				aria-label="Loading Spinner"
-				data-testid="loader"
-			/>
-		);
-	}
-
 	return (
 		<>
 			<Head title="Galhardo Newsletter" description="description" />
@@ -81,7 +56,13 @@ export default function ConfirmEmailPage() {
 							</h1>
 						</a>
 
-						{isConfirmed ? (
+						{isLoading && (
+							<div className="mt-5 alert alert-info mt-3 text-center" role="alert">
+								Processando...
+							</div>
+						)}
+
+						{!isLoading && isConfirmed && (
 							<>
 								<Fireworks autorun={{ speed: 1 }} />
 
@@ -93,7 +74,9 @@ export default function ConfirmEmailPage() {
 									email de segunda a sexta-feira ao meio dia!
 								</div>
 							</>
-						) : (
+						)}
+
+						{!isLoading && !isConfirmed && (
 							<div className="mt-5 alert alert-danger mt-3 text-center" role="alert">
 								Houve um erro ao confirmar o seu email. Por favor, tente novamente mais tarde.
 							</div>

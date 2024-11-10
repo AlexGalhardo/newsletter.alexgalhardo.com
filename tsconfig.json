@@ -24,7 +24,7 @@
 		"src",
 		"src/Hooks/.gitkeep",
 		"emails"
-	],
+, "emails"	],
 	"references": [
 		{
 			"path": "./tsconfig.node.json"

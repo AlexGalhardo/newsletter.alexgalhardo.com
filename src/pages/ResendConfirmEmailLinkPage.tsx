@@ -12,6 +12,7 @@ export default function ResendConfirmEmailLinkPage() {
 	const [loading, setLoading] = useState(false);
 	const [emailNotRegistered, setEmailNotRegistered] = useState(false);
 	const [emailAlreadyConfirmed, setEmailAlreadyConfirmed] = useState(false);
+	const [emailDeleted, setEmailDeleted] = useState(false);
 	const [emailSent, setEmailSent] = useState(false);
 	const [errorEmail, setErrorEmail] = useState("");
 	const [formData, setFormData] = useState({
@@ -24,6 +25,7 @@ export default function ResendConfirmEmailLinkPage() {
 		setErrorEmail("");
 		setEmailNotRegistered(false);
 		setEmailAlreadyConfirmed(false);
+		setEmailDeleted(false);
 	};
 
 	const handleSubmit = async (e: React.FormEvent) => {
@@ -47,7 +49,9 @@ export default function ResendConfirmEmailLinkPage() {
 
 			console.log("response -> ", response);
 
-			if (!response?.success && response?.email_not_registered) {
+			if (!response?.success && response?.email_deleted) {
+				setEmailDeleted(true);
+			} else if (!response?.success && response?.email_not_registered) {
 				setEmailNotRegistered(true);
 			} else if (!response?.success && response?.email_already_confirmed) {
 				setEmailAlreadyConfirmed(true);
@@ -64,8 +68,8 @@ export default function ResendConfirmEmailLinkPage() {
 	return (
 		<>
 			<Head
-				title="Reenviar link de verificação"
-				description="Reenviar link de verificação para ativar email no Galhardo Newsletter."
+				title="Reenviar link para ativar email"
+				description="Reenviar link para ativar email no Galhardo Newsletter."
 			/>
 
 			<div className="mx-auto lg:w-7/12" style={{ marginTop: "50px" }}>
@@ -78,18 +82,26 @@ export default function ResendConfirmEmailLinkPage() {
 								</h1>
 							</a>
 
-							<p className="mb-5 mt-5">
-								Cadastrou seu email mas esqueceu ou perdeu seu link de verificação?
+							<p className="mb-5 mt-5 me-4 ms-4">
+								Cadastrou seu email mas esqueceu ou perdeu seu link de ativação?
 							</p>
 
-							<p className="mb-5 mt-5">Digite seu email novamente para receber o link de ativação.</p>
+							<p className="mb-5 mt-5 me-4 ms-4">
+								Digite seu email novamente para receber o link de ativação.
+							</p>
 
-							<div className="modal-body">
+							<div className="modal-body me-4 ms-4">
 								{!emailSent && (
 									<>
 										{errorEmail && (
 											<div className="mt-5 alert alert-danger text-center" role="alert">
 												{errorEmail}
+											</div>
+										)}
+
+										{emailDeleted && (
+											<div className="mt-5 alert alert-danger mt-3 text-center" role="alert">
+												Esse email foi desinscrito!
 											</div>
 										)}
 
@@ -109,7 +121,7 @@ export default function ResendConfirmEmailLinkPage() {
 											<input
 												className="form-control fs-4"
 												name="email"
-												placeholder="Email que vai receber link de verificação"
+												placeholder="Email que vai receber o link"
 												type="email"
 												value={formData.email}
 												onChange={handleChange}
@@ -122,7 +134,7 @@ export default function ResendConfirmEmailLinkPage() {
 												disabled={loading}
 												className="shadow-lg w-full text-white font-bold py-2 px-4 rounded-lg bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 transition-colors duration-300"
 											>
-												{loading ? "Processando..." : "Reenviar link de verificação"}
+												{loading ? "Processando..." : "Reenviar link para ativar email"}
 											</button>
 										</div>
 									</>
@@ -130,7 +142,7 @@ export default function ResendConfirmEmailLinkPage() {
 
 								{emailSent && (
 									<div className="mt-5 alert alert-success mt-3 text-center" role="alert">
-										Um email de verificação foi enviado para:
+										Um email de ativação foi enviado para:
 										<br />
 										<br />
 										<span className="fw-bold">{formData.email}</span>
