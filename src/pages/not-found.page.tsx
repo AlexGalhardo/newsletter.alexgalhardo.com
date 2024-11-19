@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
 
-export default function NotFound() {
+export default function NotFoundPage() {
 	return <Navigate to="/" />;
 }

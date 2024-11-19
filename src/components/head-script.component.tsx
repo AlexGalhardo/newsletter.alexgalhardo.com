@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export default function HeadScript({ url }: { url: string }) {
+export default function HeadScriptComponent({ url }: { url: string }) {
 	useEffect(() => {
 		const script = document.createElement("script");
 		script.src = url;

@@ -1,6 +1,6 @@
 import { useEffect, useState, CSSProperties } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Head from "../components/Head";
+import HeadComponent from "../components/head.component";
 import "react-toastify/dist/ReactToastify.css";
 import { API_URL } from "../utils/envs.util";
 import { z } from "zod";
@@ -42,7 +42,7 @@ export default function UnsubscribePage() {
 
 	return (
 		<>
-			<Head title="Galhardo Newsletter" description="Unsubscribe email" />
+			<HeadComponent title="Galhardo Newsletter" description="Unsubscribe email" />
 
 			<div className="mx-auto lg:w-7/12" style={{ marginTop: "50px" }}>
 				<div className="row">

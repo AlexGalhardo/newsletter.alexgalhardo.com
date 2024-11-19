@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Head from "../components/Head";
+import HeadComponent from "../components/head.component";
 import "react-toastify/dist/ReactToastify.css";
 import { API_URL } from "../utils/envs.util";
 import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
@@ -45,7 +45,7 @@ export default function ConfirmEmailPage() {
 
 	return (
 		<>
-			<Head title="Galhardo Newsletter" description="description" />
+			<HeadComponent title="Galhardo Newsletter" description="description" />
 
 			<div className="mx-auto lg:w-7/12" style={{ marginTop: "50px" }}>
 				<div className="row">

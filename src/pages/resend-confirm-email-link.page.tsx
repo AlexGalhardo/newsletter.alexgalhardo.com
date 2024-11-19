@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Head from "../components/Head";
+import HeadComponent from "../components/head.component";
 import "react-toastify/dist/ReactToastify.css";
 import { API_URL } from "../utils/envs.util";
 import { z } from "zod";
@@ -67,7 +67,7 @@ export default function ResendConfirmEmailLinkPage() {
 
 	return (
 		<>
-			<Head
+			<HeadComponent
 				title="Reenviar link para ativar email"
 				description="Reenviar link para ativar email no Galhardo Newsletter."
 			/>
@@ -119,6 +119,7 @@ export default function ResendConfirmEmailLinkPage() {
 
 										<div className="mb-3">
 											<input
+												autoFocus
 												className="form-control fs-4"
 												name="email"
 												placeholder="Email que vai receber o link"
