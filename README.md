@@ -1,8 +1,8 @@
-<h1 align="center">Boilerplate React Vite Bootstrap5</h1>
+<h1 align="center">newsletter.alexgalhardo.com</h1>
 
 ## Introduction
 
-- A simple boilerplate to create fast front-end side projects
+- A simple newsletter side project
 
 ## Development Setup Local
 
